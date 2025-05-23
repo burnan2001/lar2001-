@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign Up - JosMarketFind</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Urbanist:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+</head>
+<body class="auth-page">
+    <div class="container">
+        <h1>Create Account</h1>
+        <p class="text-center mb-2">Welcome to JosMarketFind ₦</p>
+
+        <div id="error-message-container" class="error-message" style="display: none;"></div> <!-- Initially hidden -->
+
+        <div class="form-group role-selection">
+            <label>Select your role:</label>
+            <input type="radio" id="role-buyer" name="role" value="buyer" checked>
+            <label for="role-buyer">Buyer</label>
+            <input type="radio" id="role-vendor" name="role" value="vendor">
+            <label for="role-vendor">Vendor</label>
+        </div>
+
+        <!-- Email/Password Signup -->
+        <form id="email-signup-form">
+            <div class="form-group">
+                <label for="signup-email">Email Address</label>
+                <input type="email" id="signup-email" required>
+            </div>
+            <div class="form-group">
+                <label for="signup-password">Password</label>
+                <input type="password" id="signup-password" required>
+                <p class="password-requirements">Min. 8 characters, 1 uppercase, 1 lowercase, 1 number, 1 special character.</p>
+            </div>
+            <div class="form-group">
+                <label for="signup-confirm-password">Confirm Password</label>
+                <input type="password" id="signup-confirm-password" required>
+            </div>
+            <button type="submit" id="email-signup-btn">Sign Up with Email</button>
+        </form>
+
+        <div class="or-divider">OR</div>
+
+        <!-- Phone Number Signup -->
+        <form id="phone-signup-form">
+            <div class="form-group">
+                <label for="phone-number">Phone Number (e.g., +2348012345678)</label>
+                <input type="tel" id="phone-number" placeholder="+234XXXXXXXXXX" required>
+            </div>
+            <button type="button" id="send-otp-btn">Send OTP</button>
+            
+            <div id="otp-section" class="form-group">
+                <label for="otp-code">Enter OTP</label>
+                <input type="text" id="otp-code" autocomplete="one-time-code">
+                <button type="button" id="verify-otp-btn">Verify OTP & Sign Up</button>
+            </div>
+        </form>
+
+        <div class="or-divider">OR</div>
+
+        <!-- Google Sign-In -->
+        <div class="form-group">
+            <button id="google-signin-btn" class="google-btn">
+                <span class="material-icons">login</span> <!-- Example Icon, replace with actual Google icon if preferred -->
+                Sign Up with Google
+            </button>
+        </div>
+
+        <div class="form-link">
+            <p>Already have an account? <a href="login.html">Login here</a></p>
+        </div>
+    </div>
+
+    <!-- Firebase SDK -->
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-auth-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-storage-compat.js"></script>
+    
+    <script src="js/firebase-config.js"></script>
+    <script src="js/auth.js"></script> 
+    <script src="js/main.js"></script> 
+    <!-- Specific page logic can be in main.js or a dedicated signup.js if it grows complex -->
+</body>
+</html>

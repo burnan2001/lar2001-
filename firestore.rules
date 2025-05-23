@@ -1,0 +1,53 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    // Users Collection
+    match /users/{userId} {
+      // CREATE: Allow user to create their own document if they are signed in and the document ID matches their UID.
+      // Role must be either 'buyer' or 'vendor'. isVerifiedVendor must be false.
+      allow create: if request.auth != null && request.auth.uid == userId
+                      && request.resource.data.role in ['buyer', 'vendor']
+                      && request.resource.data.isVerifiedVendor == false
+                      && request.resource.data.uid == request.auth.uid
+                      && (!('verificationStatus' in request.resource.data) || request.resource.data.verificationStatus == null || request.resource.data.verificationStatus == 'not_submitted'); // Initial status
+
+
+      // READ: Allow user to read their own document.
+      allow read: if request.auth != null && request.auth.uid == userId;
+
+      // UPDATE: Allow user to update specific fields.
+      // - Cannot change 'role', 'uid', 'email', 'phoneNumber', 'isVerifiedVendor', 'createdAt'.
+      // - 'verificationStatus' can only be changed by vendor to 'pending_approval' if they are submitting documents.
+      // - 'uploadedDocuments' can be set/updated by the vendor.
+      // - (Future: allow updates to displayName, photoURL etc.)
+      allow update: if request.auth != null && request.auth.uid == userId
+                    // Fields that cannot be changed by user
+                    && request.resource.data.role == resource.data.role
+                    && request.resource.data.uid == resource.data.uid
+                    && request.resource.data.email == resource.data.email // Email typically doesn't change or handled by Firebase Auth
+                    && request.resource.data.phoneNumber == resource.data.phoneNumber // Phone typically doesn't change or handled by Firebase Auth
+                    && request.resource.data.isVerifiedVendor == resource.data.isVerifiedVendor // Should only be changed by admin
+                    && request.resource.data.createdAt == resource.data.createdAt
+                    // Vendor submitting documents
+                    && (
+                         (request.resource.data.verificationStatus == 'pending_approval' && resource.data.verificationStatus != 'pending_approval' && request.resource.data.role == 'vendor')
+                         || request.resource.data.verificationStatus == resource.data.verificationStatus // No change to status or status change allowed
+                       )
+                    && (
+                        request.resource.data.uploadedDocuments != null || resource.data.uploadedDocuments == null // allowing to set documents
+                    );
+                    // Add more specific field checks if needed, e.g. for profile updates like displayName
+
+      // DELETE: Generally, users should not be able to delete their own accounts directly via Firestore.
+      // This should be handled by a Firebase Function or admin process.
+      allow delete: if false; // Or specific admin role: request.auth.token.admin == true;
+    }
+
+    // Add rules for other collections if any (e.g., products, orders) later.
+    // For now, default deny all other paths.
+    match /{document=**} {
+      allow read, write: if false;
+    }
+  }
+}

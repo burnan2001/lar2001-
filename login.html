@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login - JosMarketFind</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Urbanist:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+</head>
+<body class="auth-page">
+    <div class="container">
+        <h1>Login to JosMarketFind ₦</h1>
+
+        <div id="login-error-message-container" class="error-message" style="display: none;"></div> <!-- Initially hidden -->
+
+        <!-- Email/Password Login -->
+        <form id="email-login-form">
+            <div class="form-group">
+                <label for="login-email">Email Address</label>
+                <input type="email" id="login-email" required>
+            </div>
+            <div class="form-group">
+                <label for="login-password">Password</label>
+                <input type="password" id="login-password" required>
+            </div>
+            <button type="submit" id="email-login-btn">Login with Email</button>
+        </form>
+
+        <div class="or-divider">OR</div>
+
+        <!-- Phone Number Login -->
+        <form id="phone-login-form">
+            <div class="form-group">
+                <label for="login-phone-number">Phone Number (e.g., +2348012345678)</label>
+                <input type="tel" id="login-phone-number" placeholder="+234XXXXXXXXXX" required>
+            </div>
+            <button type="button" id="login-send-otp-btn">Send OTP</button>
+            
+            <div id="login-otp-section" class="form-group">
+                <label for="login-otp-code">Enter OTP</label>
+                <input type="text" id="login-otp-code" autocomplete="one-time-code">
+                <button type="button" id="login-verify-otp-btn">Verify OTP & Login</button>
+            </div>
+        </form>
+
+        <div class="or-divider">OR</div>
+
+        <!-- Google Sign-In -->
+        <div class="form-group">
+            <button id="login-google-signin-btn" class="google-btn">
+                 <span class="material-icons">login</span> <!-- Example Icon -->
+                Login with Google
+            </button>
+        </div>
+
+        <div class="extra-links">
+            <a href="signup.html">Create an account</a>
+            <a href="forgot-password.html">Forgot Password?</a>
+        </div>
+    </div>
+
+    <!-- Firebase SDK -->
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-auth-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-storage-compat.js"></script>
+    
+    <script src="js/firebase-config.js"></script>
+    <script src="js/auth.js"></script> 
+    <script src="js/main.js"></script>
+</body>
+</html>
