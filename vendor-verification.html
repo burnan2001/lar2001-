@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vendor Verification - JosMarketFind</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Urbanist:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Include Material Icons (if not already globally included) -->
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+</head>
+<body class="auth-page"> <!-- Applied auth-page for consistent background -->
+    <div class="container" style="max-width: 650px;"> <!-- Specific max-width for this container -->
+        <div id="initial-info">
+             <h1>Welcome, Vendor! Just a few more steps... ₦</h1>
+             <p class="text-center">Your registration is complete. To start selling on JosMarketFind, please upload the required verification documents. This helps us maintain a safe and trustworthy marketplace.</p>
+        </div>
+
+        <!-- Progress Steps -->
+        <div class="progress-steps">
+            <div class="step completed" id="step-registration">
+                <div class="icon">✓</div>
+                <div>Registration</div>
+            </div>
+            <div class="step-line"></div>
+            <div class="step active" id="step-upload-docs">
+                <div class="icon">2</div>
+                <div>Upload Docs</div>
+            </div>
+            <div class="step-line"></div>
+            <div class="step" id="step-approval">
+                <div class="icon">3</div>
+                <div>Awaiting Approval</div>
+            </div>
+        </div>
+
+        <div id="message-container" class="message-container" style="display: none;">
+            <!-- General messages will be displayed here by JavaScript -->
+        </div>
+
+        <!-- Document Upload Section -->
+        <div id="upload-section" style="display: none;"> <!-- Initially hidden -->
+            <form id="vendor-doc-upload-form">
+                <div class="form-group">
+                    <label for="doc-nin">NIN (National Identification Number) Card Copy</label>
+                    <input type="file" id="doc-nin" accept="image/*,.pdf" required>
+                </div>
+                <div class="form-group">
+                    <label for="doc-id">Valid ID Card (e.g., Driver's License, Voter's Card)</label>
+                    <input type="file" id="doc-id" accept="image/*,.pdf" required>
+                </div>
+                <div class="form-group">
+                    <label for="doc-utility">Recent Utility Bill (not older than 3 months)</label>
+                    <input type="file" id="doc-utility" accept="image/*,.pdf" required>
+                </div>
+                <button type="submit" id="upload-docs-btn">Upload Documents</button>
+            </form>
+            <p class="info-note">Accepted formats: JPG, PNG, PDF. Max file size: 5MB per document.</p>
+        </div>
+
+        <!-- Pending Approval Section (Initially Hidden) -->
+        <div id="pending-approval-section" style="display: none;"> <!-- Initially hidden -->
+            <span class="material-icons pending">hourglass_empty</span>
+            <h2>Documents Submitted!</h2>
+            <p>Your verification documents have been successfully uploaded and are now awaiting review. This process usually takes 1-3 business days.</p>
+            <p>We'll notify you via email once the review is complete. You can check your status by logging back in.</p>
+            <p class="status-message" id="current-verification-status">Current Status: Verification Pending</p> <!-- Added ID here -->
+            <button onclick="auth.signOut().then(() => window.location.href='login.html');" class="button-style accent-red-btn" style="width: auto;">Logout</button>
+        </div>
+         <button id="check-status-btn" class="button-style accent-yellow-btn" style="display:none; width: auto;">Refresh Verification Status</button>
+
+
+    </div>
+
+    <!-- Firebase SDK -->
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-auth-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-storage-compat.js"></script>
+    
+    <script src="js/firebase-config.js"></script>
+    <script src="js/auth.js"></script> 
+    <script src="js/vendor.js"></script> <!-- For vendor specific logic -->
+    <script src="js/main.js"></script>
+</body>
+</html>

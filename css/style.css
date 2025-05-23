@@ -1,0 +1,463 @@
+/* JosMarketFind Styles */
+
+:root {
+  --primary-color: #009688; /* Eco-green */
+  --accent-color-yellow: #FBC02D; /* Sun yellow */
+  --accent-color-red: #F44336; /* Tomato red */
+  --neutral-white: #FFFFFF;
+  --neutral-light-gray: #F4F4F4; /* Page background */
+  --neutral-charcoal-gray: #212121; /* Main text color */
+  --text-on-primary: #FFFFFF;
+  --text-on-accent: #212121; 
+  --font-primary: 'Poppins', sans-serif;
+  --font-secondary: 'Urbanist', sans-serif; /* For headings or special text */
+  --border-radius-main: 8px;
+  --box-shadow-main: 0 4px 15px rgba(0,0,0,0.1);
+}
+
+/* Basic Reset/Normalize */
+* { 
+  margin: 0; 
+  padding: 0; 
+  box-sizing: border-box; 
+}
+
+html { 
+  scroll-behavior: smooth; 
+}
+
+body {
+  font-family: var(--font-primary);
+  background-color: var(--neutral-light-gray);
+  color: var(--neutral-charcoal-gray);
+  line-height: 1.6;
+  margin: 0; /* Ensure no default margin */
+  padding: 0; /* Ensure no default padding */
+}
+
+img { 
+  max-width: 100%; 
+  display: block; 
+}
+
+/* Typography */
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-secondary);
+  color: var(--primary-color);
+  margin-bottom: 0.75em;
+}
+
+h1 { font-size: 2.2em; }
+h2 { font-size: 1.8em; }
+h3 { font-size: 1.5em; }
+/* Add h4, h5, h6 styles if needed */
+
+p { 
+  margin-bottom: 1em; 
+  color: var(--neutral-charcoal-gray); 
+}
+
+a { 
+  color: var(--primary-color); 
+  text-decoration: none; 
+}
+a:hover { 
+  text-decoration: underline; 
+}
+
+/* Form Elements Styling */
+label {
+  display: block;
+  margin-bottom: 8px;
+  font-weight: 500;
+  color: var(--neutral-charcoal-gray);
+}
+
+input[type="text"], 
+input[type="email"], 
+input[type="password"], 
+input[type="tel"], 
+select {
+  width: 100%;
+  padding: 12px 15px;
+  border: 1px solid #ccc;
+  border-radius: var(--border-radius-main);
+  font-family: var(--font-primary);
+  font-size: 1em;
+  margin-bottom: 10px; /* Space below input */
+  box-sizing: border-box; /* ensure padding doesn't expand element width */
+}
+
+input:focus, select:focus {
+  border-color: var(--primary-color);
+  outline: none;
+  box-shadow: 0 0 0 2px rgba(0, 150, 136, 0.2); /* Focus ring */
+}
+
+input[type="file"] {
+  width: 100%; 
+  padding: 10px; 
+  border: 1px solid #ccc; 
+  border-radius: var(--border-radius-main); 
+  box-sizing: border-box;
+  font-family: var(--font-primary);
+  margin-bottom: 10px;
+}
+
+input[type="file"]::file-selector-button {
+  background-color: var(--primary-color);
+  color: var(--text-on-primary);
+  padding: 8px 12px;
+  border: none;
+  border-radius: var(--border-radius-main); /* Match main radius */
+  cursor: pointer;
+  margin-right: 10px;
+  font-family: var(--font-primary);
+  transition: background-color 0.3s ease;
+}
+input[type="file"]::file-selector-button:hover {
+  opacity: 0.9;
+  background-color: darkgreen; /* Consistent hover with other buttons */
+}
+
+.password-requirements {
+  font-size: 0.85em;
+  color: #555;
+  margin-top: -5px; /* Pull up slightly */
+  margin-bottom: 10px;
+}
+
+/* Button Styling */
+button, .button-style {
+  background-color: var(--primary-color);
+  color: var(--text-on-primary);
+  padding: 12px 20px;
+  border: none;
+  border-radius: var(--border-radius-main);
+  cursor: pointer;
+  width: 100%;
+  font-size: 1.1em;
+  font-family: var(--font-primary);
+  font-weight: 500;
+  text-align: center;
+  transition: background-color 0.3s ease, opacity 0.3s ease;
+  margin-top: 10px;
+  box-sizing: border-box; /* Ensure padding doesn't expand element width */
+}
+
+button:hover, .button-style:hover {
+  background-color: darkgreen; /* Consider a calculated darker shade: color-mix(in srgb, var(--primary-color) 85%, black) */
+  opacity: 0.9;
+}
+
+button:disabled, .button-style:disabled {
+  background-color: #ccc;
+  color: #666;
+  cursor: not-allowed;
+}
+
+/* Specific Button Types */
+.google-btn {
+  background-color: #db4437;
+  color: var(--text-on-primary); /* Ensure text is white */
+}
+.google-btn:hover {
+  background-color: #c33a2c;
+}
+.google-btn svg { /* Style for embedded SVG in Google button */
+    display: inline-block; 
+    vertical-align: middle; 
+    margin-right: 8px;
+}
+
+
+.accent-red-btn {
+  background-color: var(--accent-color-red);
+  color: var(--text-on-primary);
+}
+.accent-red-btn:hover {
+  background-color: #d32f2f; /* Darker red */
+}
+
+.accent-yellow-btn {
+  background-color: var(--accent-color-yellow);
+  color: var(--text-on-accent); /* Text on yellow is usually dark */
+}
+.accent-yellow-btn:hover {
+  background-color: #f9a825; /* Darker yellow */
+}
+
+
+/* Container & Layout Styling */
+.container {
+  background-color: var(--neutral-white);
+  padding: 30px 40px;
+  border-radius: var(--border-radius-main);
+  box-shadow: var(--box-shadow-main);
+  width: 100%;
+  max-width: 480px;
+  margin: 20px; /* Margin for smaller screens, gets centered by body.auth-page */
+  text-align: left; /* Default text align for container content */
+}
+.container h1, .container h2 { /* Center headings within containers by default */
+    text-align: center;
+}
+
+
+body.auth-page {
+  display: flex;
+  flex-direction: column; /* Stack elements vertically */
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  padding: 20px 0; /* Padding for very small screens, ensures content isn't flush with edges */
+}
+
+/* Error & Message Styling */
+.error-message {
+  color: var(--accent-color-red);
+  background-color: #ffebee; /* Light red background */
+  padding: 10px 15px;
+  border-radius: var(--border-radius-main);
+  margin-bottom: 15px;
+  border: 1px solid var(--accent-color-red);
+  text-align: center; /* Center error messages */
+  font-size: 0.9em;
+}
+
+.success-message {
+  color: var(--primary-color);
+  background-color: #e0f2f1; /* Light green background */
+  padding: 10px 15px;
+  border-radius: var(--border-radius-main);
+  margin-bottom: 15px;
+  border: 1px solid var(--primary-color);
+  text-align: center; /* Center success messages */
+  font-size: 0.9em;
+}
+
+.status-message { /* Can be similar to success or neutral */
+  color: var(--neutral-charcoal-gray);
+  background-color: #e0f2f7; /* Light blue/cyan background for neutral status */
+  padding: 10px 15px;
+  border-radius: var(--border-radius-main);
+  margin-bottom: 15px;
+  border: 1px solid #007bff; /* Example blue border */
+  text-align: center;
+  font-size: 0.9em;
+}
+
+.info-note {
+  font-size: 0.9em;
+  color: #666;
+  margin-top: 15px;
+  text-align: center;
+}
+
+/* Utility Classes */
+.text-center { text-align: center; }
+.mb-1 { margin-bottom: 0.5rem; } /* 8px if 1rem = 16px */
+.mb-2 { margin-bottom: 1rem; }   /* 16px */
+.mt-1 { margin-top: 0.5rem; }
+.mt-2 { margin-top: 1rem; }
+
+/* Or Divider Style (from signup/login pages) */
+.or-divider {
+  text-align: center;
+  margin: 20px 0;
+  color: #888;
+  display: flex;
+  align-items: center;
+}
+.or-divider::before, .or-divider::after {
+  content: '';
+  flex: 1;
+  border-bottom: 1px solid #ccc;
+}
+.or-divider:not(:empty)::before {
+  margin-right: .25em;
+}
+.or-divider:not(:empty)::after {
+  margin-left: .25em;
+}
+
+
+/* Role Selection (from signup page) */
+.role-selection {
+  margin-top: 15px;
+  margin-bottom: 20px;
+  text-align: center; /* Center the radio buttons and labels */
+}
+.role-selection label { /* Inline-block for side-by-side display */
+  display: inline-block;
+  margin-right: 15px;
+  margin-left: 5px; /* Space between radio and label text */
+  font-weight: normal; /* Standard weight for radio labels */
+}
+.role-selection input[type="radio"] {
+    width: auto; /* Override default full width */
+    margin-right: 0;
+    vertical-align: middle;
+}
+
+/* Links within auth forms (e.g. "Already have an account?") */
+.form-link, .extra-links { /* .extra-links from login.html */
+  text-align: center;
+  margin-top: 20px;
+}
+.form-link a, .extra-links a {
+  color: var(--primary-color);
+  text-decoration: none;
+  margin: 0 5px; /* Spacing for multiple links */
+}
+.form-link a:hover, .extra-links a:hover {
+  text-decoration: underline;
+}
+
+
+/* Vendor Verification Specific Styles */
+.progress-steps { 
+    margin: 30px 0; 
+    display: flex; 
+    justify-content: space-around; 
+    align-items: flex-start; /* Align items at the start for text below icon */
+    position: relative; /* For the line */
+}
+.step { 
+    display: flex; 
+    flex-direction: column; 
+    align-items: center; 
+    text-align: center; 
+    color: #ccc; 
+    flex: 1; 
+    position: relative;
+    z-index: 1; /* Ensure steps are above the line */
+}
+.step .icon { 
+    width: 30px; 
+    height: 30px; 
+    background-color: #ccc; 
+    border-radius: 50%; 
+    margin-bottom: 8px; 
+    display: flex; 
+    justify-content: center; 
+    align-items: center; 
+    font-weight: bold; 
+    color: white; 
+    transition: background-color 0.3s ease;
+}
+.step.active .icon { background-color: var(--accent-color-yellow); color: var(--text-on-accent); }
+.step.completed .icon { background-color: var(--primary-color); }
+.step.active, .step.completed { color: var(--neutral-charcoal-gray); }
+
+.progress-steps::before { /* The connecting line */
+    content: '';
+    position: absolute;
+    top: 15px; /* Align with the middle of the icons */
+    left: 10%; /* Start after some padding */
+    right: 10%; /* End before some padding */
+    height: 2px;
+    background-color: #ccc;
+    z-index: 0; /* Behind the step icons */
+}
+.step.completed ~ .step.active::before, /* Line between completed and active */
+.step.completed ~ .step.completed::before {
+    background-color: var(--primary-color); /* Color the line segment if previous is completed */
+}
+
+
+#pending-approval-section .icon.material-icons, /* Specific styling for material icon in pending section */
+.material-icons.pending { 
+    font-family: 'Material Icons'; 
+    font-weight: normal; 
+    font-style: normal; 
+    font-size: 48px; 
+    line-height: 1; 
+    letter-spacing: normal; 
+    text-transform: none; 
+    display: inline-block; 
+    white-space: nowrap; 
+    word-wrap: normal; 
+    direction: ltr; 
+    -webkit-font-smoothing: antialiased;
+    color: var(--accent-color-yellow); 
+    margin-bottom: 15px; 
+}
+
+/* General Material Icon Styling */
+.material-icons {
+  vertical-align: middle;
+  margin-right: 5px;
+  /* Common size and color can be set here or overridden per instance */
+}
+
+
+/* Responsiveness */
+@media (max-width: 600px) {
+  body {
+    padding: 0; /* Remove body padding for auth-page on small screens if container handles it */
+  }
+  .container {
+    padding: 20px 25px; /* Adjusted padding for container */
+    margin: 10px auto; /* Center container if body isn't flex centering */
+    max-width: calc(100% - 20px); /* Ensure some margin from screen edges */
+    box-shadow: none; /* Optional: remove shadow on very small screens */
+  }
+  h1 { font-size: 1.8em; }
+  h2 { font-size: 1.5em; }
+  h3 { font-size: 1.3em; }
+
+  button, .button-style {
+    font-size: 1em;
+    padding: 10px 15px;
+  }
+  input[type="text"], 
+  input[type="email"], 
+  input[type="password"], 
+  input[type="tel"], 
+  select {
+    padding: 10px 12px;
+    font-size: 0.95em;
+  }
+
+  .progress-steps {
+    flex-direction: column;
+    align-items: center;
+  }
+  .progress-steps::before { /* Hide overall line on column layout */
+      display: none;
+  }
+  .step {
+    flex-direction: row; /* Icons next to text */
+    align-items: center;
+    margin-bottom: 10px; /* Space between steps when stacked */
+    width: 100%;
+    max-width: 250px; /* Limit width of step row */
+  }
+  .step .icon {
+    margin-right: 10px;
+    margin-bottom: 0;
+  }
+  .step::after { /* Individual lines for stacked steps */
+    content: '';
+    height: 15px; /* Length of the vertical line */
+    width: 2px;
+    background-color: #ccc;
+    position: relative;
+    left: -10px; /* Adjust to align with icon center */
+    top: 20px; /* Position below the icon */
+    display: block; /* Make it visible */
+  }
+  .step:last-child::after { /* No line after the last step */
+      display: none;
+  }
+  .step.completed::after { background-color: var(--primary-color); }
+
+
+}
+
+@media (max-width: 400px) {
+    h1 { font-size: 1.6em; }
+    .container { padding: 15px 20px; }
+    /* Further reduce padding/font sizes for very small screens if necessary */
+}

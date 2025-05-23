@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vendor Dashboard - JosMarketFind</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+</head>
+<body>
+    <div class="container" style="max-width: 800px; margin-top: 50px; text-align: center;">
+        <h1>Vendor Dashboard - JosMarketFind ₦</h1>
+        <p>Welcome, Verified Vendor! Manage your products and view your sales.</p>
+        <p>This is your main dashboard. Tools for product management will be here.</p>
+        <button id="logout-btn" class="button-style accent-red-btn" style="width: auto; padding: 10px 20px; margin-top: 20px;">Logout <span class="material-icons">exit_to_app</span></button>
+    </div>
+
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-auth-compat.js"></script>
+    <script src="js/firebase-config.js"></script>
+    <script src="js/auth.js"></script> <!-- For logout -->
+     <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const logoutBtn = document.getElementById('logout-btn');
+            if (logoutBtn && window.auth) { // Ensure auth is available
+                logoutBtn.addEventListener('click', async () => {
+                    try {
+                        await auth.signOut();
+                        alert('You have been logged out.');
+                        window.location.href = 'login.html';
+                    } catch (error) {
+                        console.error('Logout failed:', error);
+                        alert('Logout failed. Please try again.');
+                    }
+                });
+            } else if (!window.auth) {
+                console.error("Firebase auth not initialized on vendor-dashboard.html");
+                 // Attempt to initialize or alert user
+                if (!window.firebase) {
+                     alert("Firebase SDK not loaded. Logout functionality might be affected.");
+                } else if (!window.app) {
+                     alert("Firebase app not initialized. Logout functionality might be affected.");
+                }
+            }
+        });
+    </script>
+</body>
+</html>

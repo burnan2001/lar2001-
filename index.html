@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Welcome to JosMarketFind</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <style>
+        /* body { display: flex; justify-content: center; align-items: center; min-height: 100vh; text-align: center; } /* Replaced by auth-page or similar */
+        .landing-container { padding: 20px; text-align: center; max-width: 700px; margin-top: 50px;} /* Added margin-top for better spacing */
+        .landing-actions a { margin: 0 10px; /* Reduced margin slightly */ }
+        /* Using classes from style.css for buttons, so removing specific styles for 'a' tags here if they are .button-style */
+    </style>
+</head>
+<body class="auth-page"> <!-- Using auth-page for background and centering -->
+    <div class="container landing-container"> <!-- Added .container for consistent padding/boxing from style.css -->
+        <h1><span class="material-icons" style="font-size: 1.5em; vertical-align: bottom;">storefront</span> Welcome to JosMarketFind ₦!</h1>
+        <p>Your one-stop shop for the best finds, connecting buyers and sellers across Nigeria.</p>
+        <div class="landing-actions" style="margin-top:30px;">
+            <a href="login.html" class="button-style" style="width:auto; padding: 10px 25px; margin-right:10px;">Login <span class="material-icons">login</span></a>
+            <a href="signup.html" class="button-style accent-yellow-btn" style="width:auto; padding: 10px 25px;">Sign Up <span class="material-icons">person_add</span></a>
+        </div>
+        <p class="info-note" style="margin-top: 40px;">Discover amazing products from local vendors or start selling today!</p>
+    </div>
+
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-auth-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore-compat.js"></script>
+    <script src="js/firebase-config.js"></script>
+    <script src="js/auth.js"></script> <!-- For handleRedirect and db -->
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // If auth is not ready, wait for it.
+            const checkAuthInterval = setInterval(() => {
+                // Check for auth, db, and also the specific handleRedirect function from auth.js
+                if (window.auth && window.db && typeof window.handleRedirect === 'function') {
+                    clearInterval(checkAuthInterval); // Stop checking once everything is loaded
+                    
+                    auth.onAuthStateChanged(async user => {
+                        if (user) {
+                            console.log("User logged in, attempting redirect from index.html");
+                            try {
+                                const userDocRef = db.collection('users').doc(user.uid);
+                                const doc = await userDocRef.get();
+                                if (doc.exists) {
+                                    const userData = doc.data();
+                                    // handleRedirect is defined in auth.js
+                                    // It's important that auth.js is loaded and handleRedirect is in the global scope or accessible
+                                    if (typeof handleRedirect === 'function') {
+                                        handleRedirect(userData.role, userData.isVerifiedVendor); 
+                                    } else {
+                                        console.error("handleRedirect function is not defined. Ensure auth.js is loaded correctly.");
+                                    }
+                                } else {
+                                    // No user document, maybe stay or redirect to login to be safe
+                                    console.log("User authenticated but no Firestore document found from index.html. User might need to complete signup or profile.");
+                                    // Optional: redirect to login or signup if profile is incomplete
+                                    // window.location.href = 'login.html'; 
+                                }
+                            } catch (error) {
+                                console.error("Error fetching user data for redirect from index.html:", error);
+                            }
+                        } else {
+                            console.log("No user logged in (from index.html). Page will remain as landing page.");
+                        }
+                    });
+                } else {
+                    // Optional: console log that we are still waiting for Firebase services or handleRedirect
+                    // console.log("Waiting for Firebase services and handleRedirect...");
+                }
+            }, 100); // Check every 100ms
+        });
+    </script>
+</body>
+</html>
